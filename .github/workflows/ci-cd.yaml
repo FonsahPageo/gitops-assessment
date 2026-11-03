@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - "helloapi/**"
-      - ".github/workflows/ci.yaml"
+      - ".github/workflows/ci-cd.yaml"
   pull_request:
       paths:
         - "helloapi/**"
