@@ -7,8 +7,8 @@ on:
       - "helloapi/**"
       - ".github/workflows/ci-cd.yaml"
   pull_request:
-      paths:
-        - "helloapi/**"
+    paths:
+      - "helloapi/**"
 
 # prevent race conditions when two pushes commit the new tag
 concurrency:
@@ -87,15 +87,17 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Set new image tag in Helm values
-        env:
-          TAG: ${{ needs.build-and-push.outputs.tag }}
         run: |
+          TAG="${GITHUB_SHA::7}"
+          if [ -z "$TAG" ]; then
+            echo "::error::Image tag is empty"
+            exit 1
+          fi
+          echo "TAG=$TAG" >> "$GITHUB_ENV"
           sed -i "s|^  tag: .*|  tag: \"${TAG}\"|" helm/k8s-demo-api/values.yaml
           grep -n "^  tag:" helm/k8s-demo-api/values.yaml
 
       - name: Commit and push
-        env:
-          TAG: ${{ needs.build-and-push.outputs.tag }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
