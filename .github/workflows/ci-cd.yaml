@@ -90,8 +90,8 @@ jobs:
         env:
           TAG: ${{ needs.build-and-push.outputs.tag }}
         run: |
-          sed -i "s|^  tag: .*|  tag: \"${TAG}\"|" helm/helloapi/values.yaml
-          grep -n "^  tag:" helm/helloapi/values.yaml
+          sed -i "s|^  tag: .*|  tag: \"${TAG}\"|" helm/k8s-demo-api/values.yaml
+          grep -n "^  tag:" helm/k8s-demo-api/values.yaml
 
       - name: Commit and push
         env:
@@ -99,7 +99,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add helm/helloapi/values.yaml
+          git add helm/k8s-demo-api/values.yaml
           if git diff --cached --quiet; then
             echo "No change to commit"
             exit 0
