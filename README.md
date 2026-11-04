@@ -161,7 +161,7 @@ kubectl get pods -A
 
 Both nodes must be `Ready`, and all system pods `Running`. The control plane keeps its default `NoSchedule` taint, so all application pods are scheduled on the worker.
 
-_Evidence: `docs/screenshots/nodes-ready.png`_
+_Evidence: `docs/nodes-ready.png`,  `docs/describe-pods.png`, `docs/endpoints-reachable.png`, `docs/running-pods.png`, `docs/workflow-github-actions.png`_
 
 ---
 
@@ -316,26 +316,7 @@ kubectl get applications -n argocd
 
 ## 10. Reaching the API
 
-The chart defaults to `ClusterIP`, so the API is not exposed outside the cluster.
-
-```bash
-# From the control plane
-curl -s http://$(kubectl get svc k8s-demo-api -n demo -o jsonpath='{.spec.clusterIP}')/api/info
-
-# Or with a port-forward
-kubectl port-forward -n demo svc/k8s-demo-api 8081:80
-curl -s localhost:8081/api/hello
-```
-
-To expose it externally, set the following in `helm/k8s-demo-api/values.yaml` and push (Argo CD applies it), then open TCP 30080 in the security group:
-
-```yaml
-service:
-  type: NodePort
-  nodePort: 30080
-```
-
-The API is then available at `http://<node-public-ip>:30080/api/info`.
+The API is available at `http://<node-public-ip>:30080/api/info`, exposed on NodePort.
 
 ---
 
