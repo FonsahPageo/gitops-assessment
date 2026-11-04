@@ -28,7 +28,7 @@ public class ApiController {
     @GetMapping("/hello")
     public Map<String, Object> hello(@RequestParam(defaultValue = "World") String name) {
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("message", "Hello, " + name + "!");
+        body.put("message", "Hello, " + name + "from GitOps!");
         body.put("timestamp", Instant.now().toString());
         return body;
     }
