@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helloapi
+  name: k8s-demo-api
   namespace: argocd
 spec:
   project: default

@@ -1,5 +1,5 @@
 apiVersion: v2
-name: helloapi
+name: k8s-demo-api
 description: Helm chart for helloapi Spring Boot app
 type: application
 version: 0.1.0

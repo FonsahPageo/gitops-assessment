@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: ghcr.io/fonsahpageo/helloapi
@@ -11,17 +11,32 @@ imagePullSecrets:
 containerPort: 8080
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
-  nodePort: 30080
+  targetPort: 8080
+  nodePort: ""
 
 resources:
   requests:
     cpu: 100m
-    memory: 256Mi
+    memory: 128Mi
   limits:
     cpu: 500m
     memory: 512Mi
+
+probes:
+  startup:
+    path: /api/health
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /api/health
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  liveness:
+    path: /api/health
+    initialDelaySeconds: 10
+    periodSeconds: 20
 
 podSecurityContext:
   runAsNonRoot: true
