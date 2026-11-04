@@ -21,7 +21,7 @@ class ApiControllerTest {
     void helloReturnsDefaultGreeting() throws Exception {
         mockMvc.perform(get("/api/hello"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message").value("Hello, World!"));
+                .andExpect(jsonPath("$.message").value("Hello, World from GitOps!"));
     }
 
     @Test
