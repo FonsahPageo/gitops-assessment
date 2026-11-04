@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helloapi
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/FonsahPageo/gitops-assessment.git
+    targetRevision: main
+    path: helm/k8s-demo-api
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: helloapi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
