@@ -11,10 +11,10 @@ imagePullSecrets:
 containerPort: 8080
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
   targetPort: 8080
-  nodePort: ""
+  nodePort: 30080
 
 resources:
   requests:
