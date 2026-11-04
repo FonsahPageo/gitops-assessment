@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/fonsahpageo/helloapi
-  tag: "latest"
+  tag: ""
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
