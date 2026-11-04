@@ -20,7 +20,7 @@ public class ApiController {
     private final String commit;
 
     public ApiController(BuildProperties buildProperties,
-            @Value("${app.commit:unknown") String commit) {
+            @Value("${app.commit:unknown}") String commit) {
         this.buildProperties = buildProperties;
         this.commit = commit;
     }
@@ -53,7 +53,7 @@ public class ApiController {
         return body;
     }
 
-    private static String hostname(){
+    private static String hostname() {
         try {
             return InetAddress.getLocalHost().getHostName();
         } catch (Exception e) {
